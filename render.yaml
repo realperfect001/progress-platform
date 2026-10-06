@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: progress-platform-api
+    runtime: docker
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: ENV
+        value: production
+      - key: DATABASE_URL
+        value: sqlite:////var/data/progress.db
+      - key: UPLOAD_DIR
+        value: /var/data/uploads
+      - key: SECRET_KEY
+        generateValue: true
+      - key: FRONTEND_ORIGIN
+        sync: false
+    disk:
+      name: progress-data
+      mountPath: /var/data
+      sizeGB: 1
